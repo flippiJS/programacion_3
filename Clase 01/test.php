@@ -42,7 +42,7 @@ if($_GET['asc'] == '1'){
 }
 
 foreach ($lista as $item) {
-   // echo "$item ";
+    echo "$item ";
 }
 
 // Objetos
