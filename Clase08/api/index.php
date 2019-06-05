@@ -6,24 +6,31 @@ require './vendor/autoload.php';
 
 $app = new \Slim\App;
 
-$app->get('/', function (Request $request, Response $response, array $args) {
-    $response->write("Api v1.0");
-    return $response;
-});
+// API group
+$app->group('/v1', function ($app) {
 
-$app->post('/', function (Request $request, Response $response, array $args) {
-    $response->write("Api v1.0");
-    return $response;
-});
+    $app->get('/', function (Request $request, Response $response, array $args) {
+        $response->write("GET");
+        return $response;
+    });
 
-$app->put('/', function (Request $request, Response $response, array $args) {
-    $response->write("Api v1.0");
-    return $response;
-});
+    $app->post('/', function (Request $request, Response $response, array $args) {
+        $data = $request->getParsedBody();
+        $response->write("POST ".$data['nombre']);
+        return $response;
+    });
 
-$app->delete('/', function (Request $request, Response $response, array $args) {
-    $response->write("Api v1.0");
-    return $response;
+    $app->put('/', function (Request $request, Response $response, array $args) {
+        $data = $request->getParsedBody();
+        $response->write("PUT ".$data['nombre']);
+        return $response;
+    });
+
+    $app->delete('/', function (Request $request, Response $response, array $args) {
+        $response->write("DELETE ");
+        return $response;
+    });
+
 });
 
 
