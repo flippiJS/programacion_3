@@ -2,36 +2,30 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require './vendor/autoload.php';
+require_once './vendor/autoload.php';
+require_once './clases/AccesoDatos.php';
+require_once './clases/cdApi.php';
 
-$app = new \Slim\App;
+
+$config['displayErrorDetails'] = true;
+$config['addContentLengthHeader'] = false;
+
+$app = new \Slim\App(["settings" => $config]);
 
 // API group
-$app->group('/v1', function ($app) {
 
-    $app->get('/', function (Request $request, Response $response, array $args) {
-        $response->write("GET");
-        return $response;
-    });
-
-    $app->post('/', function (Request $request, Response $response, array $args) {
-        $data = $request->getParsedBody();
-        $response->write("POST ".$data['nombre']);
-        return $response;
-    });
-
-    $app->put('/', function (Request $request, Response $response, array $args) {
-        $data = $request->getParsedBody();
-        $response->write("PUT ".$data['nombre']);
-        return $response;
-    });
-
-    $app->delete('/', function (Request $request, Response $response, array $args) {
-        $response->write("DELETE ");
-        return $response;
-    });
-
+$app->group('/api', function () {
+ 
+    $this->get('/', \cdApi::class . ':traerTodos');
+   
+    $this->get('/{id}', \cdApi::class . ':traerUno');
+  
+    $this->post('/', \cdApi::class . ':CargarUno');
+  
+    $this->delete('/', \cdApi::class . ':BorrarUno');
+  
+    $this->put('/', \cdApi::class . ':ModificarUno');
+       
 });
-
 
 $app->run();
