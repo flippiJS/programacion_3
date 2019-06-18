@@ -1,1 +1,2 @@
-/Clase08/api/vendor/*
+vendor/
+composer.lock
