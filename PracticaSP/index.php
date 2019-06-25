@@ -23,7 +23,7 @@ $app->group('/usuario', function(){
 
 $app->group('/compra', function(){
     $this->post('', \compraController::class . ':CargarUno')->add(\MWparaAutentificar::class . ':VerificarLogeadoCompra');
-    $this->get('', \compraController::class . ':TraerTodos');
+    $this->get('', \compraController::class . ':TraerTodos')->add(\MWparaAutentificar::class . ':VerificarTraerCompra');
 });
 
 $app->run();

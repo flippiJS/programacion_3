@@ -1,5 +1,4 @@
 <?php
-
 require_once "AutentificadorJWT.php";
 class MWparaAutentificar
 {
@@ -109,7 +108,7 @@ class MWparaAutentificar
 		$objDelaRespuesta= new stdclass();
 		$objDelaRespuesta->respuesta="";
 	   
-		if($request->isPost())
+		if($request->isGet())
 		{
 			$arrayConToken = $request->getHeader('token');
 			$token = $arrayConToken[0];
@@ -131,5 +130,6 @@ class MWparaAutentificar
 				
 			}
 		}
+		return $response;  
 	}
 }
